@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
 const NavBar = ({ logo, navOptions = [{ name: "Home", link: "home" }] }) => {
+    const [scrollY, setScrollY] = useState(false);
+
+    //    calculate window scroll position
+    useEffect(() => {
+        window.addEventListener("scroll", () => {
+            setScrollY(window.scrollY > 200);
+        });
+    }, [scrollY]);
+
     return (
-        <nav className="bg-white shadow-md sticky top-0 border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800">
+        <nav
+            className={`bg-white ${
+                scrollY ? "sticky top-0 py-3 shadow-md" : "py-6"
+            } border-gray-200 px-2 sm:px-4 rounded dark:bg-gray-800 transition-all duration-200 ease-linear`}
+        >
             <div className="container flex flex-wrap justify-between items-center mx-auto">
                 <Link to="/" className="flex items-center">
                     <img
